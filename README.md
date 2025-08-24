@@ -69,8 +69,6 @@ Welcome to my DSA practice repository! This repo is a collection of code, notes,
 
 ## 📊 Quick Statistics
 
-- **LeetCode:** [X] solved problems
-- **GeeksforGeeks:** [Y] solved problems
 - **Language used:** C++
 - **Tools** Git, Github, VS Code
 - **Practive Platforms** Leetcode, GeekforGeeks
