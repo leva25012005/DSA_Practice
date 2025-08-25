@@ -1,0 +1,89 @@
+name: 📝 Auto Update Documentation
+
+on:
+  push:
+    branches: [ main, master ]  # Chạy khi push vào main/master
+    paths:
+      - 'Solutions/**'          # Chỉ chạy khi có thay đổi trong Solutions
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'Solutions/**'
+  workflow_dispatch:            # Cho phép chạy manual
+
+jobs:
+  update-documentation:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🛒 Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0          # Lấy full history
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: 📊 Show Repository Structure
+      run: |
+        echo "📁 Repository structure:"
+        find . -type f -name "*.py" | head -10
+        find Solutions -type d 2>/dev/null | head -10 || echo "Solutions folder not found"
+        ls -la Docs/ 2>/dev/null || echo "Docs folder not found"
+        
+    - name: 🔄 Run Documentation Update Script
+      run: |
+        echo "🚀 Running update_docs.py..."
+        python update_docs.py
+        
+    - name: 📋 Check for Changes
+      id: check_changes
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "changes=true" >> $GITHUB_OUTPUT
+          echo "📝 Changes detected:"
+          git status --short
+        else
+          echo "changes=false" >> $GITHUB_OUTPUT
+          echo "ℹ️ No changes detected"
+        fi
+        
+    - name: ⚙️ Configure Git
+      if: steps.check_changes.outputs.changes == 'true'
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+    - name: 📝 Commit and Push Changes
+      if: steps.check_changes.outputs.changes == 'true'
+      run: |
+        echo "📤 Committing changes..."
+        git add Docs/*.md
+        
+        # Tạo commit message với thông tin chi tiết
+        CHANGED_FILES=$(git diff --cached --name-only | wc -l)
+        COMMIT_MSG="📝 Auto-update documentation
+        
+        - Updated $CHANGED_FILES file(s)
+        - Triggered by: ${{ github.event_name }}
+        - Commit: ${{ github.sha }}
+        
+        [skip ci]"
+        
+        git commit -m "$COMMIT_MSG"
+        git push
+        
+    - name: 📊 Summary
+      run: |
+        echo "## 📊 Update Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ steps.check_changes.outputs.changes }}" == "true" ]; then
+          echo "✅ Documentation updated successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "📝 Files updated:" >> $GITHUB_STEP_SUMMARY
+          git show --name-only --pretty="" HEAD | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️ No updates needed - documentation is up to date!" >> $GITHUB_STEP_SUMMARY
+        fi

@@ -268,12 +268,26 @@ for (int i=1; i<n; ++i) {
 
 ## 📂 List of Solved Problems
 
-| ID   | Problem                 | Link                                                                 | Status | Note                |
-| ---- | ----------------------- | -------------------------------------------------------------------- | ------ | ------------------- |
-| 0001 | Two Sum                 | [LeetCode](https://leetcode.com/problems/two-sum/)                   | ✅     | HashMap             |
-| 0053 | Maximum Subarray        | [LeetCode](https://leetcode.com/problems/maximum-subarray/)          | 🚧     | Kadane’s Algorithm  |
-| 0121 | Best Time to Buy & Sell | [LeetCode](https://leetcode.com/problems/best-time-to-buy-and-sell/) | ⏳     | Prefix Sum + Greedy |
+### 📘 LeetCode Problems
 
-👉 Gợi ý: Dùng script automation để update bảng này từ folder `solutions/leetcode/`.
+**Progress:** 3 / 200 (1%)
 
----
+`[--------------------]`
+
+| ID | Problem | Link | Status | Note |
+| ---- | ------- | ---- | ------ | ---- |
+| 111 | Onesum | [Link](https://leetcode.com/problems/onesum/) | ✅ |  |
+| 123 | Twosum | [Link](https://leetcode.com/problems/twosum/) | ✅ |  |
+| 211 | 2sum | [Link](https://leetcode.com/problems/2sum/) | ✅ |  |
+
+### 🟢 GeeksforGeeks Problems
+
+**Progress:** 3 / 200 (1%)
+
+`[--------------------]`
+
+| ID | Problem | Link | Status | Note |
+| ---- | ------- | ---- | ------ | ---- |
+| 111 | Onesum | [Link](https://www.geeksforgeeks.org/onesum/) | ✅ |  |
+| 123 | Twosum | [Link](https://www.geeksforgeeks.org/twosum/) | ✅ |  |
+| 211 | 2sum | [Link](https://www.geeksforgeeks.org/2sum/) | ✅ |  |
