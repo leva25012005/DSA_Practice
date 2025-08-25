@@ -275,10 +275,6 @@ for (int i=1; i<n; ++i) {
 `[--------------------]`
 
 | ID | Problem | Link | Status | Note |
-| ---- | ------- | ---- | ------ | ---- |
-| 111 | Onesum | [Link](https://leetcode.com/problems/onesum/) | ✅ |  |
-| 123 | Twosum | [Link](https://leetcode.com/problems/twosum/) | ✅ |  |
-| 211 | 2sum | [Link](https://leetcode.com/problems/2sum/) | ✅ |  |
 
 ### 🟢 GeeksforGeeks Problems
 
@@ -287,7 +283,3 @@ for (int i=1; i<n; ++i) {
 `[--------------------]`
 
 | ID | Problem | Link | Status | Note |
-| ---- | ------- | ---- | ------ | ---- |
-| 111 | Onesum | [Link](https://www.geeksforgeeks.org/onesum/) | ✅ |  |
-| 123 | Twosum | [Link](https://www.geeksforgeeks.org/twosum/) | ✅ |  |
-| 211 | 2sum | [Link](https://www.geeksforgeeks.org/2sum/) | ✅ |  |
