@@ -41,7 +41,7 @@ jobs:
     - name: 🔄 Run Documentation Update Script
       run: |
         echo "🚀 Running update_docs.py..."
-        python update_docs.py
+        python Scripts/update_progress.py
         
     - name: 📋 Check for Changes
       id: check_changes
