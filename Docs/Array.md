@@ -39,25 +39,25 @@
 
 ## 🔑 Common Array Problem-Solving Techniques
 
-| #   | **Technique**                                               | **Complexity (Time/Space)** | **Example Problems**                         | **Note**                                                                  |
-| --- | ----------------------------------------------------------- | --------------------------- | -------------------------------------------- | ------------------------------------------------------------------------- |
-| 1   | 👣 [Traversal](#1--traversal)                               | O(n) / O(1)                 | Find sum, min/max, check conditions          | Basic iteration over the entire array                                     |
-| 2   | 🎯 [Two Pointers](#2--two-pointers)                         | O(n) / O(1)                 | Two Sum II, 3Sum, Remove Duplicates          | Use two indices moving inward or parallel to optimize pair/triplet search |
-| 3   | ⚡ [Prefix Sum](#3--prefix-sum)                             | O(n) / O(n)                 | Subarray Sum, Range Query                    | Precompute cumulative sums for fast range queries                         |
-| 4   | 🪟 [Sliding Window](#4--sliding-window)                     | O(n) / O(1)                 | Maximum Subarray, Longest Substring          | Maintain a dynamic window over the array for subarray/substring problems  |
-| 5   | 🔢 [Counting/Frequency](#5--countingfrequency)              | O(n) / O(k)                 | Anagram check, Counting Sort                 | Use arrays/maps to count occurrences (effective when range is small)      |
-| 6   | 🗂 [Hash Map (Hashing)](#6--hash-map-hashing)                | O(n) / O(n)                 | Two Sum, Subarray Sum Equals K               | Store index/frequency for quick lookups                                   |
-| 7   | 🔀 [Sorting-based](#7--sorting-based)                       | O(n log n)                  | Merge Intervals, Meeting Rooms               | Sort first, then apply greedy, binary search, or two pointers             |
-| 8   | 📏 [Binary Search](#8--binary-search)                       | O(log n) / O(1)             | Search in Rotated Array, Peak Element        | Efficient search in sorted or rotated arrays                              |
-| 9   | 📉 [Monotonic Stack](#9--monotonic-stack)                   | O(n) / O(1)                 | Next Greater Element, Largest Histogram      | Use increasing/decreasing stack for range queries                         |
-| 10  | ⛰ [Heap (Priority Queue)](#10--heap-priority-queue)         | O(n log k)                  | Kth Largest Element, Top K Frequent          | Maintain top-k elements or process streaming data                         |
-| 11  | ⚔ [Divide & Conquer](#11--divide--conquer)                  | O(n log n)                  | Merge Sort, Max Subarray (D&C)               | Split into subproblems and combine results                                |
-| 12  | 🔁 [Dynamic Programming](#12--dynamic-programming)          | O(n) / O(n)                 | House Robber, DP on arrays                   | Store intermediate results to avoid recomputation                         |
-| 13  | 💡 [Greedy + Array](#13--greedy--array)                     | O(n log n)                  | Interval Scheduling, Minimum Arrows          | Make local optimal decisions, often with sorting/heap                     |
-| 14  | 🔄 [Cycle Detection (Floyd’s)](#14--cycle-detection-floyds) | O(n) / O(1)                 | Find Duplicate Number, Linked List Cycle     | Detect cycles using fast/slow pointers                                    |
-| 15  | 🧩 [Matrix-based](#15--matrix-based-2d-array)               | O(n·m) / O(1)               | Rotate Matrix, Spiral Traversal, Word Search | Apply array techniques to 2D grids                                        |
-| 16  | 🪅 [Partitioning/Grouping](#16--partitioninggrouping)       | O(n) / O(1)                 | Dutch National Flag, Group Anagrams          | Rearrange/group elements based on conditions                              |
-| 17  | 📈 [Kadane’s Algorithm](#17--kadanes-algorithm)             | O(n) / O(1)                 | Maximum Subarray, Circular Subarray          | DP-like linear scan to find maximum sum subarray                          |
+| #   | **Technique**                                              | **Complexity (Time/Space)** | **Example Problems**                         | **Note**                                                                  |
+| --- | ---------------------------------------------------------- | --------------------------- | -------------------------------------------- | ------------------------------------------------------------------------- |
+| 1   | 👣 [Traversal](#1-traversal)                               | O(n) / O(1)                 | Find sum, min/max, check conditions          | Basic iteration over the entire array                                     |
+| 2   | 🎯 [Two Pointers](#2-two-pointers)                         | O(n) / O(1)                 | Two Sum II, 3Sum, Remove Duplicates          | Use two indices moving inward or parallel to optimize pair/triplet search |
+| 3   | ⚡ [Prefix Sum](#3-prefix-sum)                             | O(n) / O(n)                 | Subarray Sum, Range Query                    | Precompute cumulative sums for fast range queries                         |
+| 4   | 🪟 [Sliding Window](#4-sliding-window)                     | O(n) / O(1)                 | Maximum Subarray, Longest Substring          | Maintain a dynamic window over the array for subarray/substring problems  |
+| 5   | 🔢 [Counting/Frequency](#5-countingfrequency)              | O(n) / O(k)                 | Anagram check, Counting Sort                 | Use arrays/maps to count occurrences (effective when range is small)      |
+| 6   | 🗂 [Hash Map (Hashing)](#6-hash-map-hashing)                | O(n) / O(n)                 | Two Sum, Subarray Sum Equals K               | Store index/frequency for quick lookups                                   |
+| 7   | 🔀 [Sorting-based](#7-sorting-based)                       | O(n log n)                  | Merge Intervals, Meeting Rooms               | Sort first, then apply greedy, binary search, or two pointers             |
+| 8   | 📏 [Binary Search](#8-binary-search)                       | O(log n) / O(1)             | Search in Rotated Array, Peak Element        | Efficient search in sorted or rotated arrays                              |
+| 9   | 📉 [Monotonic Stack](#9-monotonic-stack)                   | O(n) / O(1)                 | Next Greater Element, Largest Histogram      | Use increasing/decreasing stack for range queries                         |
+| 10  | ⛰ [Heap (Priority Queue)](#10-heap-priority-queue)         | O(n log k)                  | Kth Largest Element, Top K Frequent          | Maintain top-k elements or process streaming data                         |
+| 11  | ⚔ [Divide & Conquer](#11-divide--conquer)                  | O(n log n)                  | Merge Sort, Max Subarray (D&C)               | Split into subproblems and combine results                                |
+| 12  | 🔁 [Dynamic Programming](#12-dynamic-programming)          | O(n) / O(n)                 | House Robber, DP on arrays                   | Store intermediate results to avoid recomputation                         |
+| 13  | 💡 [Greedy + Array](#13-greedy--array)                     | O(n log n)                  | Interval Scheduling, Minimum Arrows          | Make local optimal decisions, often with sorting/heap                     |
+| 14  | 🔄 [Cycle Detection (Floyd’s)](#14-cycle-detection-floyds) | O(n) / O(1)                 | Find Duplicate Number, Linked List Cycle     | Detect cycles using fast/slow pointers                                    |
+| 15  | 🧩 [Matrix-based](#15-matrix-based-2d-array)               | O(n·m) / O(1)               | Rotate Matrix, Spiral Traversal, Word Search | Apply array techniques to 2D grids                                        |
+| 16  | 🪅 [Partitioning/Grouping](#16-partitioninggrouping)       | O(n) / O(1)                 | Dutch National Flag, Group Anagrams          | Rearrange/group elements based on conditions                              |
+| 17  | 📈 [Kadane’s Algorithm](#17-kadanes-algorithm)             | O(n) / O(1)                 | Maximum Subarray, Circular Subarray          | DP-like linear scan to find maximum sum subarray                          |
 
 ---
 
