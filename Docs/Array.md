@@ -6,6 +6,7 @@
 2. [Common Array Problem-Solving Techniques](#-Common-Array-Problem-Solving-Techniques)
 3. [List of Solved Problems](#-list-of-Solved-Problems)
 4. [Common Array Problem-Solving Techniques — C++ Template Code](#-common-array-problem-solving-techniques)
+5. [List of Solved Problems](#-list-of-solved-problems)
 
 ---
 
@@ -270,7 +271,7 @@ for (int i=1; i<n; ++i) {
 
 ### 📘 LeetCode Problems
 
-**Progress:** 0 / 200 (0%)
+**Progress:** 1 / 200 (0%)
 
 `[--------------------]`
 
