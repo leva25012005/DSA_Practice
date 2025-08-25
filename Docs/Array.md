@@ -270,7 +270,7 @@ for (int i=1; i<n; ++i) {
 
 ### 📘 LeetCode Problems
 
-**Progress:** 3 / 200 (1%)
+**Progress:** 0 / 200 (0%)
 
 `[--------------------]`
 
@@ -278,7 +278,7 @@ for (int i=1; i<n; ++i) {
 
 ### 🟢 GeeksforGeeks Problems
 
-**Progress:** 3 / 200 (1%)
+**Progress:** 0 / 200 (0%)
 
 `[--------------------]`
 
