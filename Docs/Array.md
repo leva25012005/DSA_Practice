@@ -274,7 +274,8 @@ for (int i=1; i<n; ++i) {
 
 `[--------------------]`
 
-| ID | Problem | Link | Status | Note |
+| ID  | Problem | Link | Status | Note |
+| --- | ------- | ---- | ------ | ---- |
 
 ### 🟢 GeeksforGeeks Problems
 
@@ -282,4 +283,5 @@ for (int i=1; i<n; ++i) {
 
 `[--------------------]`
 
-| ID | Problem | Link | Status | Note |
+| ID  | Problem | Link | Status | Note |
+| --- | ------- | ---- | ------ | ---- |
