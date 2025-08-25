@@ -2,7 +2,11 @@ name: 📝 Auto Update Documentation
 
 on:
   push:
-    branches: [ main, master ]  # Chạy khi push vào main/master
+    branches: 
+      - main
+      - master
+      - test-*                  # Cho phép test trên branch test-*
+      - feature/*               # Hoặc branch feature/*
     paths:
       - 'Solutions/**'          # Chỉ chạy khi có thay đổi trong Solutions
   pull_request:
@@ -65,16 +69,27 @@ jobs:
         
         # Tạo commit message với thông tin chi tiết
         CHANGED_FILES=$(git diff --cached --name-only | wc -l)
-        COMMIT_MSG="📝 Auto-update documentation
+        BRANCH_NAME=${GITHUB_REF#refs/heads/}
+        
+        if [[ "$BRANCH_NAME" == "main" || "$BRANCH_NAME" == "master" ]]; then
+          COMMIT_PREFIX="📝 Auto-update documentation"
+        else
+          COMMIT_PREFIX="🧪 [TEST] Auto-update documentation"
+        fi
+        
+        COMMIT_MSG="$COMMIT_PREFIX
         
         - Updated $CHANGED_FILES file(s)
+        - Branch: $BRANCH_NAME
         - Triggered by: ${{ github.event_name }}
         - Commit: ${{ github.sha }}
         
         [skip ci]"
         
         git commit -m "$COMMIT_MSG"
-        git push
+        
+        # Push vào cùng branch đang làm việc
+        git push origin HEAD:$BRANCH_NAME
         
     - name: 📊 Summary
       run: |
