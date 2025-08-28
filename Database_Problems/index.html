@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>LeetCode Problems</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h2 { margin-bottom: 20px; }
+    table { width: 100%; }
+
+    .tag {
+      display: inline-block;
+      background: #e0f3ff;
+      border: 1px solid #90caf9;
+      border-radius: 6px;
+      padding: 2px 6px;
+      margin: 2px;
+      font-size: 12px;
+      color: #1565c0;
+    }
+    .company-tag {
+      display: inline-block;
+      background: #f2f2f2;
+      border-radius: 6px;
+      padding: 2px 6px;
+      margin: 2px;
+      font-size: 12px;
+      border: 1px solid #ccc;
+    }
+
+    /* Highlight styles */
+    mark {
+      background: #ffff00 !important;
+      color: #000 !important;
+      padding: 1px 2px;
+      font-weight: bold;
+    }
+
+    .filters {
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 5px;
+    }
+    .filters select {
+      margin-right: 10px;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+    .filters label {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h2>LeetCode Problems</h2>
+
+  <!-- Filters -->
+  <div class="filters">
+    <label>Difficulty: 
+      <select id="filter-difficulty">
+        <option value="">All</option>
+      </select>
+    </label>
+
+    <label>Tags: 
+      <select id="filter-tags">
+        <option value="">All</option>
+      </select>
+    </label>
+
+    <label>Companies: 
+      <select id="filter-companies">
+        <option value="">All</option>
+      </select>
+    </label>
+    
+    <button id="clear-filters">Clear All Filters</button>
+  </div>
+
+  <table id="leetcode" class="display">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Difficulty</th>
+        <th>Tags</th>
+        <th>Companies</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
+
+  <script>
+  $(document).ready(function(){
+    // Sample data để demo (thay thế bằng dữ liệu thực từ API hoặc JSON)
+    var sampleData = [
+      {
+        questionFrontendId: "1",
+        title: "Two Sum",
+        titleSlug: "two-sum",
+        difficulty: "Easy",
+        topicTags: [
+          {name: "Array"},
+          {name: "Hash Table"}
+        ],
+        companies: [
+          {name: "Amazon", frequency: 15},
+          {name: "Google", frequency: 12}
+        ]
+      },
+      {
+        questionFrontendId: "2",
+        title: "Add Two Numbers",
+        titleSlug: "add-two-numbers",
+        difficulty: "Medium",
+        topicTags: [
+          {name: "Linked List"},
+          {name: "Math"}
+        ],
+        companies: [
+          {name: "Microsoft", frequency: 10},
+          {name: "Facebook", frequency: 8}
+        ]
+      },
+      {
+        questionFrontendId: "3",
+        title: "Longest Substring Without Repeating Characters",
+        titleSlug: "longest-substring-without-repeating-characters",
+        difficulty: "Medium",
+        topicTags: [
+          {name: "String"},
+          {name: "Sliding Window"},
+          {name: "Hash Table"}
+        ],
+        companies: [
+          {name: "Amazon", frequency: 20},
+          {name: "Facebook", frequency: 15}
+        ]
+      },
+      {
+        questionFrontendId: "4",
+        title: "Median of Two Sorted Arrays",
+        titleSlug: "median-of-two-sorted-arrays",
+        difficulty: "Hard",
+        topicTags: [
+          {name: "Array"},
+          {name: "Binary Search"},
+          {name: "Divide and Conquer"}
+        ],
+        companies: [
+          {name: "Google", frequency: 18},
+          {name: "Apple", frequency: 7}
+        ]
+      },
+      {
+        questionFrontendId: "5",
+        title: "Longest Palindromic Substring",
+        titleSlug: "longest-palindromic-substring",
+        difficulty: "Medium",
+        topicTags: [
+          {name: "String"},
+          {name: "Dynamic Programming"}
+        ],
+        companies: [
+          {name: "Amazon", frequency: 14},
+          {name: "Microsoft", frequency: 11}
+        ]
+      }
+    ];
+
+    // Function để load dữ liệu (thử JSON file trước, nếu không có thì dùng sample data)
+    function loadData() {
+      $.getJSON("leetcode_merged.json")
+        .done(function(data) {
+          console.log("Loaded data from JSON file");
+          processData(data);
+        })
+        .fail(function() {
+          console.log("JSON file not found, using sample data");
+          processData(sampleData);
+        });
+    }
+
+    function processData(data) {
+      var rows = [];
+      let difficulties = new Set();
+      let tags = new Set();
+      let companies = new Set();
+
+      data.forEach(function(p){
+        // collect filter values
+        difficulties.add(p.difficulty);
+        (p.topicTags || []).forEach(t => tags.add(t.name));
+        (p.companies || []).forEach(c => companies.add(c.name));
+
+        rows.push([
+          p.questionFrontendId,
+          `<a href="https://leetcode.com/problems/${p.titleSlug}/" target="_blank">${p.title}</a>`,
+          p.difficulty,
+          (p.topicTags || []).map(t => `<span class="tag">${t.name}</span>`).join(" "),
+          (p.companies || []).map(c => `<span class="company-tag">${c.name} (${c.frequency})</span>`).join(" ")
+        ]);
+      });
+
+      // Khởi tạo DataTable
+      var table = $('#leetcode').DataTable({
+        data: rows,
+        pageLength: 25,
+        autoWidth: false,
+        columnDefs: [
+          { width: "5%", targets: 0 },   // ID column
+          { width: "35%", targets: 1 },  // Title column
+          { width: "10%", targets: 2 },  // Difficulty column
+          { width: "25%", targets: 3 },  // Tags column
+          { width: "25%", targets: 4 }   // Companies column
+        ],
+        language: {
+          search: "Search problems:",
+          lengthMenu: "Show _MENU_ problems per page",
+          info: "Showing _START_ to _END_ of _TOTAL_ problems"
+        }
+      });
+
+      // Custom highlight function
+      function highlightSearchTerm() {
+        var searchTerm = $('.dataTables_filter input').val();
+        
+        // Clear previous highlights
+        $('#leetcode tbody').unmark();
+        
+        // Add new highlights if search term exists
+        if (searchTerm && searchTerm.length > 0) {
+          $('#leetcode tbody').mark(searchTerm, {
+            "element": "mark",
+            "className": "highlight"
+          });
+        }
+      }
+
+      // Bind highlight to search events
+      table.on('draw', highlightSearchTerm);
+      
+      $('.dataTables_filter input').on('keyup', function() {
+        setTimeout(highlightSearchTerm, 100);
+      });
+
+      // Populate filter options
+      [...difficulties].sort().forEach(d => {
+        $('#filter-difficulty').append(`<option value="${d}">${d}</option>`);
+      });
+      
+      [...tags].sort().forEach(t => {
+        $('#filter-tags').append(`<option value="${t}">${t}</option>`);
+      });
+      
+      [...companies].sort().forEach(c => {
+        $('#filter-companies').append(`<option value="${c}">${c}</option>`);
+      });
+
+      // Filter event handlers
+      $('#filter-difficulty').on('change', function(){
+        var value = this.value;
+        if (value) {
+          table.column(2).search('^' + value + '$', true, false).draw();
+        } else {
+          table.column(2).search('').draw();
+        }
+      });
+
+      $('#filter-tags').on('change', function(){
+        var value = this.value;
+        if (value) {
+          table.column(3).search(value).draw();
+        } else {
+          table.column(3).search('').draw();
+        }
+      });
+
+      $('#filter-companies').on('change', function(){
+        var value = this.value;
+        if (value) {
+          table.column(4).search(value).draw();
+        } else {
+          table.column(4).search('').draw();
+        }
+      });
+
+      // Clear all filters button
+      $('#clear-filters').on('click', function(){
+        $('#filter-difficulty, #filter-tags, #filter-companies').val('');
+        table.search('').columns().search('').draw();
+      });
+
+      console.log(`Loaded ${data.length} problems`);
+    }
+
+    // Load data
+    loadData();
+  });
+  </script>
+</body>
+</html> 
